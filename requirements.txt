@@ -1,0 +1,7 @@
+python-dotenv
+kafka-python
+pyspark
+numpy
+transformers
+elasticsearch
+sentence-transformers
