@@ -2,6 +2,10 @@ python-dotenv
 kafka-python
 pyspark
 numpy
-transformers
 elasticsearch
 sentence-transformers
+fastapi
+uvicorn
+yfinance
+streamlit
+apache-airflow

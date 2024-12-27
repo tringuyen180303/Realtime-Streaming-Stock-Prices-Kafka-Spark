@@ -1,2 +1,5 @@
 # .gitignore
 .env
+__pycache__/
+venv/
+dags/__pycache__
