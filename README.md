@@ -4,13 +4,12 @@ This project is using Airflow to retrieve stock values from Yahoo Finance and th
 
 ---
 
-# Start Docker-compose
-To begin, run Docker-compose to stall all the required containers.
+## Start Docker-compose
+To begin, run Docker-compose to stall all the required containers: 
 
 ```
 docker-compose up -d
 ```
-
 
 To check if containers running successfuly:
 ```
@@ -20,7 +19,8 @@ docker ps
 
 Continuously monitoring Kafka and control center containers as they are very vulnerable.
 
-# Create Topic inside Kafka Container
+## Create Topic inside Kafka Container
+
 Kafka need a topic to send the data to so you need to create a topic inside Kafka container
 
 ```
@@ -31,7 +31,7 @@ kafka-topics --create --topic stock_prices --bootstrap-server localhost:9092 --p
 
 
 
-# Kafka to test if data is retrieved
+## Test if data is retrieved in Kafka
 To test if the data is being sent to Kafka, navigate to kafka directory and run the producer and consumer
 ```
 cd kafka
@@ -46,7 +46,7 @@ Sent data to stock_prices: {'symbol': 'MSFT', 'data': [{'index': 0, 'Datetime': 
 ```
 
 
-# Visualize and trigger DAG manually
+## Visualize and trigger DAG manually
 To trigger DAG manually or monitoring airflow, navigate to:
 
 ```
@@ -56,11 +56,12 @@ localhost:8080
 Since I already provided entrypoint.sh that creating the user, you can log in with:
 
 username: admin
+
 password: admin
 
 ![screenshot](/images/airflow.png)
 
-# Streamlit to visualize the data
+## Streamlit to visualize the data
 
 Once the DAG has processed te data, you can visualize the stock prices using Streamlit. To run Streamlit:
 
@@ -71,3 +72,4 @@ This will start the Streamlit app, and you will be able to see an interactive da
 
 ![screenshot](/images/streamlit_web_1.png)
 ![screenshot](/images/streamlit_web_2.png)
+![screenshot](/images/streamlit_web_3.png)
