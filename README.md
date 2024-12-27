@@ -73,3 +73,9 @@ This will start the Streamlit app, and you will be able to see an interactive da
 ![screenshot](/images/streamlit_web_1.png)
 ![screenshot](/images/streamlit_web_2.png)
 ![screenshot](/images/streamlit_web_3.png)
+
+## Documentation
+- [Airflow](https://airflow.apache.org/docs/apache-airflow/stable/tutorial/index.html)
+- [Spark Streaming](https://spark.apache.org/docs/3.5.3/structured-streaming-programming-guide.html)
+- [Kafka](https://kafka.apache.org/documentation/)
+- [Streamlit](https://streamlit.io/)
