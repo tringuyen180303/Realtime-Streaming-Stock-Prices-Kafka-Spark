@@ -2,13 +2,13 @@ pipeline {
     agent any
 
     environment {
-        GIT_CREDENTIALS = credentials('github-token')
+        GIT_CREDENTIALS = credentials('github-token-2')
     }
 
     stages {
         stage('Clone Repository') {
             steps {
-                git branch: 'main', credentialsId: 'github-token', url: 'https://github.com/tringuyen180303/Realtime-Streaming-Stock-Prices-Kafka-Spark.git'
+                git branch: 'main', credentialsId: 'github-token-2', url: 'https://github.com/tringuyen180303/Realtime-Streaming-Stock-Prices-Kafka-Spark.git'
             }
         }
 
