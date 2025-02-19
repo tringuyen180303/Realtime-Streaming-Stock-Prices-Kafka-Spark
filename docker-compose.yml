@@ -42,11 +42,13 @@ services:
       KAFKA_TRANSACTION_STATE_LOG_REPLICATION_FACTOR: 1
       KAFKA_JMX_PORT: 9101
       KAFKA_JMX_HOSTNAME: localhost
+      #KAFKA_OPTS-javaagent:/opt/kafka/jmx_prometheus_javaagent-0.17.2.jar=9101:/etc/kafka/jmx-exporter.yml
       KAFKA_CONFLUENT_SCHEMA_REGISTRY_URL: http://schema-registry:8081
       CONFLUENT_METRICS_REPORTER_BOOTSTRAP_SERVERS: broker:29092
       CONFLUENT_METRICS_REPORTER_TOPIC_REPLICAS: 1
       CONFLUENT_METRICS_ENABLE: 'false'
       CONFLUENT_SUPPORT_CUSTOMER_ID: 'anonymous'
+
     networks:
       - confluent
     healthcheck:
@@ -190,6 +192,56 @@ services:
       - "8501:8501"  # Expose port 8501 for Streamlit
     networks:
       - confluent
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yaml:/etc/prometheus/prometheus.yml
+    ports:
+      - "9091:9090"
+    networks:
+      - confluent
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    depends_on:
+      - prometheus
+    # volumes:
+    #   - grafana-data:/var/lib/grafana
+    networks:
+      - confluent
+  alertmanager:
+    image: prom/alertmanager
+    container_name: alertmanager
+    ports:
+      - "9093:9093"
+    #volumes:
+     # - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    networks:
+      - confluent
+
+  jenkins:
+    image: jenkins/jenkins:lts
+    container_name: jenkins
+    user: root
+    restart: always
+    ports:
+      - "8082:8080"  # Jenkins UI
+      - "50000:50000"  # Slave-agent connection
+    environment:
+      - JENKINS_USER=admin
+      - JENKINS_PASS=admin
+    volumes:
+      #- jenkins_home:/var/jenkins_home
+      - /var/run/docker.sock:/var/run/docker.sock  # Access to Docker
+      - ./Jenkinsfile:/var/jenkins_home/workspace/Jenkinsfile
+    networks:
+      - confluent
+
+
+
 
 networks:
   confluent:
